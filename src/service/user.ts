@@ -1,10 +1,10 @@
 import { BaseService } from "./baseService";
-import { UserRespository, userRepository } from "../repository/user";
+import { UserRepository, userRepository } from "../repository/user";
 
 export class UserService extends BaseService {
-  protected repository: UserRespository;
+  protected repository: UserRepository;
 
-  constructor(repository: UserRespository) {
+  constructor(repository: UserRepository) {
     super(repository);
   }
 }

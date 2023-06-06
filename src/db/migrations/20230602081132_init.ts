@@ -93,14 +93,6 @@ export async function up(knex: Knex): Promise<void> {
       table.increments("id");
       table.integer("user_id").unsigned().nullable();
       table.string("status").notNullable();
-      table.float("sub_total").notNullable().defaultTo(0);
-      table.float("item_discount").notNullable().defaultTo(0);
-      table.float("tax").notNullable().defaultTo(0);
-      table.float("shipping").notNullable().defaultTo(0);
-      table.float("total").notNullable().defaultTo(0);
-      table.string("promo", 50).nullable();
-      table.float("discount").notNullable().defaultTo(0);
-      table.float("grand_total").notNullable().defaultTo(0);
       table.text("content").nullable();
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updated_on").nullable().defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
