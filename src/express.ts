@@ -1,6 +1,10 @@
 import express from "express";
 import cors from "cors";
-import usersRouter from "./routes/users";
+import userRouter from "./routes/user";
+import productRouter from "./routes/product";
+import productMetaRouter from "./routes/productMeta";
+
+
 import apiErrorHandler from "./error/ApiErrorHandler";
 
 const app = express();
@@ -8,7 +12,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/users", usersRouter);
+app.use("/user", userRouter);
+app.use("/product", productRouter);
+app.use("/productMeta", productMetaRouter);
 
 app.use(apiErrorHandler);
 

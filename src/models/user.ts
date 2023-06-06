@@ -1,11 +1,11 @@
-interface IUser {
+export interface IUser {
   id: number;
   first_name: string;
   last_name: string;
   middle_name: string;
   mobile: string;
   email: string;
-  passwordHash: string;
+  password_hash: string;
   admin: number;
   vendor: number;
   intro: string;
@@ -15,5 +15,3 @@ interface IUser {
   country: string;
   profile: string;
 }
-
-export { IUser };

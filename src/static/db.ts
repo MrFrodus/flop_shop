@@ -16,8 +16,34 @@ const userSelectedFields: string[] = [
   "profile",
 ];
 
+const productSelectedFields: string[] = [
+  "id",
+  "user_id",
+  "title",
+  "meta_title",
+  "slug",
+  "summary",
+  "sku",
+  "price",
+  "discount",
+  "quantity",
+  "shop",
+  "content",
+  "starts_at",
+  "ends_at"
+]
+
+const productMetaSelectedFields: string[] = [
+  "id",
+  "product_id",
+  "key",
+  "content"
+]
+
 export const dbStaticData = {
   selectedFields: {
     user: userSelectedFields,
+    product: productSelectedFields,
+    productMeta: productMetaSelectedFields,
   },
 };

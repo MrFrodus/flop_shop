@@ -26,7 +26,7 @@ export class BaseController {
   };
 
   getAll = async (
-    _req: express.Request,
+    req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
@@ -49,8 +49,8 @@ export class BaseController {
     next: express.NextFunction
   ) => {
     const updatedItem: BaseModel[] | null = await this.service.update(
-        req.params.id as string,
-        req.body as object
+      req.params.id as string,
+      req.body as object
     );
 
     if (!updatedItem) {
@@ -59,14 +59,17 @@ export class BaseController {
     return res.status(201).json(updatedItem);
   };
 
-  remove = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  remove = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     const removedItem = await this.service.remove(req.params.id as string);
-    
-    if(removedItem === 0) {
+
+    if (removedItem === 0) {
       return next(ApiErr.notFound("Such item doesn't exist"));
     }
-    
+
     return res.status(200).json(removedItem);
   };
-  
 }
