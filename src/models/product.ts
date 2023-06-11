@@ -1,6 +1,6 @@
 export interface IProduct {
     id: number,
-    user_id: number,
+    user_id: string,
     title: string,
     meta_title: string,
     slug: string,
@@ -12,5 +12,6 @@ export interface IProduct {
     shop: string,
     content: string,
     starts_at: Date,
-    ends_at: Date
+    ends_at: Date,
+    user?: object
 }

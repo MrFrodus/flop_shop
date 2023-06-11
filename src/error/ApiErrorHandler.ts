@@ -1,4 +1,4 @@
-import { ApiErr } from "./ApiError";
+import { ApiError } from "./ApiError";
 import express from "express";
 
 const apiErrorHandler = (
@@ -7,7 +7,7 @@ const apiErrorHandler = (
   res: express.Response,
   next: express.NextFunction
 ): express.Response => {
-  if (err instanceof ApiErr) {
+  if (err instanceof ApiError) {
     console.log(err.code);
     console.log(err);
     return res.status(err.code).json(err);

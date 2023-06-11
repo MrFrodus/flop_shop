@@ -1,7 +1,7 @@
 import { BaseModel } from "./../models/baseModel";
 import { BaseService } from "../service/baseService";
 import express from "express";
-import { ApiErr } from "../error/ApiError";
+import { ApiError } from "../error/ApiError";
 
 export class BaseController {
   protected service: BaseService;
@@ -20,9 +20,9 @@ export class BaseController {
     );
 
     if (!item) {
-      return next(ApiErr.notFound("Such item doesn't exist"));
+      return next(ApiError.notFound("Wrong email"));
     }
-    return res.status(200).json(item);
+    return res.status(200).json(item[0]);
   };
 
   getAll = async (
@@ -33,7 +33,7 @@ export class BaseController {
     const items: BaseModel[][] | null = await this.service.getAll();
 
     if (!items) {
-      return next(ApiErr.notFound("There is no items yet"));
+      return next(ApiError.notFound("There is no items yet"));
     }
     return res.status(200).json(items);
   };
@@ -54,7 +54,7 @@ export class BaseController {
     );
 
     if (!updatedItem) {
-      return next(ApiErr.notFound("Such item doesn't exist"));
+      return next(ApiError.notFound("Such item doesn't exist"));
     }
     return res.status(201).json(updatedItem);
   };
@@ -67,7 +67,7 @@ export class BaseController {
     const removedItem = await this.service.remove(req.params.id as string);
 
     if (removedItem === 0) {
-      return next(ApiErr.notFound("Such item doesn't exist"));
+      return next(ApiError.notFound("Such item doesn't exist"));
     }
 
     return res.status(200).json(removedItem);

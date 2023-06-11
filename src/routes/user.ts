@@ -13,6 +13,8 @@ userRouter.post("/", addUserValidation, userController.add);
 
 userRouter.patch("/:id", updateUserValidation, userController.update);
 
-userRouter.delete("/:id", userController.remove)
+userRouter.delete("/:id", userController.remove);
+
+userRouter.post("/email", userController.getByEmail);
 
 export default userRouter;

@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("middle_name", 50).nullable();
       table.string("mobile", 15).nullable();
       table.string("email", 50).notNullable().unique();
-      table.string("password_hash", 32).notNullable();
+      table.string("password", 32).notNullable();
       table.tinyint("admin", 1).notNullable().defaultTo(0);
       table.tinyint("vendor", 1).notNullable().defaultTo(0);
       table.string("intro", 255).nullable();
@@ -92,7 +92,6 @@ export async function up(knex: Knex): Promise<void> {
     .createTable("cart", (table) => {
       table.increments("id");
       table.integer("user_id").unsigned().nullable();
-      table.string("status").notNullable();
       table.text("content").nullable();
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updated_on").nullable().defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
@@ -103,11 +102,7 @@ export async function up(knex: Knex): Promise<void> {
       table.increments("id");
       table.integer("product_id").unsigned().notNullable();
       table.integer("cart_id").unsigned().notNullable();
-      table.string("sku", 100).notNullable();
-      table.float("price").notNullable().defaultTo(0);
-      table.float("discount").notNullable().defaultTo(0);
       table.smallint("quantity").notNullable().defaultTo(0);
-      table.tinyint("active", 1).notNullable().defaultTo(0);
       table.text("content").nullable();
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updated_on").nullable().defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));

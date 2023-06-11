@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { ApiErr } from "../error/ApiError";
+import { ApiError } from "../error/ApiError";
 import express from "express";
 
 const addUserSchema = Joi.object()
@@ -32,7 +32,7 @@ async function addUserValidation(
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiErr.badRequest(err.message));
+    next(ApiError.badRequest(err.message));
   }
 }
 
@@ -66,7 +66,7 @@ async function updateUserValidation(
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiErr.badRequest(err.message));
+    next(ApiError.badRequest(err.message));
   }
 }
 

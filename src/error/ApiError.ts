@@ -1,4 +1,4 @@
-export class ApiErr {
+export class ApiError {
     code: number;
     message: string;
   
@@ -8,23 +8,23 @@ export class ApiErr {
     }
   
     static badRequest(msg: string) {
-      return new ApiErr(400, msg);
+      return new ApiError(400, msg);
     }
   
     static internal(msg: string) {
-      return new ApiErr(500, msg);
+      return new ApiError(500, msg);
     }
   
     static notFound(msg: string) {
-      return new ApiErr(404, msg);
+      return new ApiError(404, msg);
     }
   
     static notAllowed(msg: string) {
-      return new ApiErr(401, msg);
+      return new ApiError(401, msg);
     }
   
     static forbidden(msg: string) {
-      return new ApiErr(403, msg);
+      return new ApiError(403, msg);
     }
   }
   

@@ -3,8 +3,14 @@ import db from "../db/db";
 export class BaseRepository<T> {
   table: string;
   selectedColumns: string[];
+  joinTable: string;
+  joinSelectedColumns: string[];
+  joinCondition: string;
 
-  constructor(table: string, selectedColumns: string[]) {
+  constructor(
+    table: string,
+    selectedColumns: string[],
+  ) {
     this.table = table;
     this.selectedColumns = selectedColumns;
   }
@@ -17,8 +23,6 @@ export class BaseRepository<T> {
     return db(this.table)
       .select(...this.selectedColumns)
       .where({ id });
-
-
   }
 
   getAll(): Promise<T[][]> {

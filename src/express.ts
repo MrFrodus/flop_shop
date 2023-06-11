@@ -10,10 +10,14 @@ import cartItemRouter from "./routes/cartItem";
 import orderRouter from "./routes/order";
 import orderItemRouter from "./routes/orderItem";
 import transactionRouter from "./routes/transaction";
+import * as dotenv from 'dotenv';
+import authRouter from "./routes/auth";
 
 import apiErrorHandler from "./error/ApiErrorHandler";
 
 const app = express();
+
+dotenv.config();
 
 app.use(cors());
 app.use(express.json());
@@ -28,6 +32,7 @@ app.use("/cartItem", cartItemRouter);
 app.use("/order", orderRouter);
 app.use("/orderItem", orderItemRouter);
 app.use("/transaction", transactionRouter);
+app.use("/auth", authRouter);
 
 app.use(apiErrorHandler);
 
