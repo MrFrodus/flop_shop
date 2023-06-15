@@ -17,7 +17,7 @@ class ProductController extends BaseController {
     next: express.NextFunction
   ) => {
     const item: BaseModel | null = await this.service.getByIdwithRelation(
-      req.params.id as string
+      parseInt(req.params.id as string)
     );
 
     if (!item) {

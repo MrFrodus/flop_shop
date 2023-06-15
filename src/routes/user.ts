@@ -1,20 +1,25 @@
 import express from "express";
 import { addUserValidation, updateUserValidation } from "../middleware/user";
+import { authenticateToken } from "../middleware/auth";
 
 import { userController } from "../controller/user";
 
 const userRouter = express.Router();
 
-userRouter.get("/:id", userController.getById);
+userRouter.get("/:id(\\d+)/", userController.getById);
 
 userRouter.get("/", userController.getAll);
 
 userRouter.post("/", addUserValidation, userController.add);
 
-userRouter.patch("/:id", updateUserValidation, userController.update);
+userRouter.patch("/:id(\\d+)/", updateUserValidation, userController.update);
 
-userRouter.delete("/:id", userController.remove);
+userRouter.delete("/:id(\\d+)/", userController.remove);
 
-userRouter.post("/email", userController.getByEmail);
+userRouter.post("/email", authenticateToken, userController.getByEmail);
+
+userRouter.post("/reg", userController.register);
+
+userRouter.get("/me", authenticateToken, userController.me);
 
 export default userRouter;

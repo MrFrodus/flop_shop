@@ -12,34 +12,34 @@ export class BaseService {
     return this.repository.add(item);
   }
 
-  getById = async (id: string): Promise<BaseModel[] | null> => {
+  getById = async (id: number): Promise<BaseModel | null> => {
     const item = await this.repository.getById(id);
-    if (!item.length) {
+    if (!item.length || !item) {
       return null;
     } else {
-      return item;
+      return item[0]!;
     }
   };
 
   getAll = async (): Promise<BaseModel[][] | null> => {
     const items = await this.repository.getAll();
-    if (!items.length) {
+    if (!items.length || !items) {
       return null;
     } else {
       return items;
     }
   };
 
-  update = async (id: string, changes: object): Promise<BaseModel[] | null> => {
+  update = async (id: number, changes: object): Promise<BaseModel | null> => {
     const updatedItem = await this.repository.update(id, changes);
-    if (!updatedItem.length) {
+    if (!updatedItem.length || !updatedItem) {
       return null;
     } else {
-      return updatedItem;
+      return updatedItem[0]!;
     }
   };
 
-  remove = async (id: string): Promise<number> => {
+  remove = async (id: number): Promise<number> => {
     const removedItem = await this.repository.remove(id);
     return removedItem;
   };

@@ -5,7 +5,7 @@ export interface IUser {
   middle_name: string;
   mobile: string;
   email: string;
-  password_hash: string;
+  password: string;
   admin: number;
   vendor: number;
   intro: string;

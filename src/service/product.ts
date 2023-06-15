@@ -10,7 +10,7 @@ export class ProductService extends BaseService {
     super(repository);
   }
 
-  getByIdwithRelation = async (id: string): Promise<BaseModel | null> => {
+  getByIdwithRelation = async (id: number): Promise<BaseModel | null> => {
     const productArray = await this.repository.getById(id);
     if (!productArray.length) {
       return null;

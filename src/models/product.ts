@@ -1,6 +1,6 @@
 export interface IProduct {
     id: number,
-    user_id: string,
+    user_id: number,
     title: string,
     meta_title: string,
     slug: string,

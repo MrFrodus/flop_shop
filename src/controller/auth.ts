@@ -12,12 +12,14 @@ class AuthController {
         if (!userData) {
             return next(ApiError.notAllowed("Wrong email"));
         }
-        if (!authService.passwordCheck(req.body.password, userData.password_hash)) {
+        if (!authService.passwordCheck(req.body.password, userData.password)) {
             return next(ApiError.notAllowed("Wrong password"));
         }
 
         return res.status(200).json(authService.createToken({ user_id: userData.id, email: userData.email }))
     }
+
+
 }
 
 export const authController = new AuthController();

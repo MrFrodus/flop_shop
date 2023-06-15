@@ -4,14 +4,14 @@ import { orderController } from "../controller/order";
 
 const orderRouter = express.Router();
 
-orderRouter.get("/:id", orderController.getById);
+orderRouter.get("/:id(\\d+)/", orderController.getById);
 
 orderRouter.get("/", orderController.getAll);
 
 orderRouter.post("/", orderController.add);
 
-orderRouter.patch("/:id", orderController.update);
+orderRouter.patch("/:id(\\d+)/", orderController.update);
 
-orderRouter.delete("/:id", orderController.remove)
+orderRouter.delete("/:id(\\d+)/", orderController.remove);
 
 export default orderRouter;

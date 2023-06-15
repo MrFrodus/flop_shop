@@ -1,6 +1,7 @@
-import { IUser } from '../models/user';
+import { IUser } from "../models/user";
 import { BaseService } from "./baseService";
 import { UserRepository, userRepository } from "../repository/user";
+import { authService } from "./auth";
 
 export class UserService extends BaseService {
   protected repository: UserRepository;
@@ -16,10 +17,13 @@ export class UserService extends BaseService {
     } else {
       return user[0]!;
     }
+  };
 
-    register = async (data: IUser) {
-      
-    }
+  register = async (user: IUser) => {
+    const { password } = user;
+    const hashedPassword = await authService.hashPassword(password);
+    user.password = hashedPassword;
+    return userRepository.add(user);
   };
 }
 

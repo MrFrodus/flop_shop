@@ -15,14 +15,15 @@ export class BaseController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const item: BaseModel[] | null = await this.service.getById(
-      req.params.id as string
+    const item: BaseModel | null = await this.service.getById(
+      parseInt(req.params.id as string)
     );
 
+
     if (!item) {
-      return next(ApiError.notFound("Wrong email"));
+      return next(ApiError.notFound("Such item doesn't exist"));
     }
-    return res.status(200).json(item[0]);
+    return res.status(200).json(item);
   };
 
   getAll = async (
@@ -39,8 +40,8 @@ export class BaseController {
   };
 
   add = async (req: express.Request, res: express.Response) => {
-    const newItem = await this.service.add(req.body as object);
-    return res.status(201).json(newItem[0]);
+    const newItemId = await this.service.add(req.body as object);
+    return res.status(201).json(newItemId[0]);
   };
 
   update = async (
@@ -48,8 +49,8 @@ export class BaseController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const updatedItem: BaseModel[] | null = await this.service.update(
-      req.params.id as string,
+    const updatedItem: BaseModel | null = await this.service.update(
+      parseInt(req.params.id as string),
       req.body as object
     );
 
@@ -64,12 +65,12 @@ export class BaseController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const removedItem = await this.service.remove(req.params.id as string);
+    const removedItemId = await this.service.remove(parseInt(req.params.id as string));
 
-    if (removedItem === 0) {
+    if (removedItemId === 0) {
       return next(ApiError.notFound("Such item doesn't exist"));
     }
 
-    return res.status(200).json(removedItem);
+    return res.status(200).json(removedItemId);
   };
 }

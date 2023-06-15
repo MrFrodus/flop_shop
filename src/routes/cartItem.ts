@@ -4,14 +4,14 @@ import { cartItemController } from "../controller/cartItem";
 
 const cartItemRouter = express.Router();
 
-cartItemRouter.get("/:id", cartItemController.getById);
+cartItemRouter.get("/:id(\\d+)/", cartItemController.getById);
 
 cartItemRouter.get("/", cartItemController.getAll);
 
 cartItemRouter.post("/", cartItemController.add);
 
-cartItemRouter.patch("/:id", cartItemController.update);
+cartItemRouter.patch("/:id(\\d+)/", cartItemController.update);
 
-cartItemRouter.delete("/:id", cartItemController.remove)
+cartItemRouter.delete("/:id(\\d+)/", cartItemController.remove);
 
 export default cartItemRouter;

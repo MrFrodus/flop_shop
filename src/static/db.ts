@@ -5,7 +5,7 @@ const userSelectedFields: string[] = [
   "middle_name",
   "mobile",
   "email",
-  "password_hash",
+  "password",
   "admin",
   "vendor",
   "intro",

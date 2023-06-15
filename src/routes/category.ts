@@ -4,14 +4,14 @@ import { categoryController } from "../controller/category";
 
 const categoryRouter = express.Router();
 
-categoryRouter.get("/:id", categoryController.getById);
+categoryRouter.get("/:id(\\d+)/", categoryController.getById);
 
 categoryRouter.get("/", categoryController.getAll);
 
 categoryRouter.post("/", categoryController.add);
 
-categoryRouter.patch("/:id", categoryController.update);
+categoryRouter.patch("/:id(\\d+)/", categoryController.update);
 
-categoryRouter.delete("/:id", categoryController.remove)
+categoryRouter.delete("/:id(\\d+)/", categoryController.remove);
 
 export default categoryRouter;

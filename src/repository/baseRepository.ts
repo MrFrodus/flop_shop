@@ -1,3 +1,4 @@
+import { BaseModel } from "src/models/baseModel";
 import db from "../db/db";
 
 export class BaseRepository<T> {
@@ -7,10 +8,7 @@ export class BaseRepository<T> {
   joinSelectedColumns: string[];
   joinCondition: string;
 
-  constructor(
-    table: string,
-    selectedColumns: string[],
-  ) {
+  constructor(table: string, selectedColumns: string[]) {
     this.table = table;
     this.selectedColumns = selectedColumns;
   }
@@ -19,7 +17,7 @@ export class BaseRepository<T> {
     return db(this.table).insert(item);
   }
 
-  getById(id: string): Promise<T[]> {
+  getById(id: number): Promise<T[]> {
     return db(this.table)
       .select(...this.selectedColumns)
       .where({ id });
@@ -29,7 +27,7 @@ export class BaseRepository<T> {
     return db(this.table).select(...this.selectedColumns);
   }
 
-  update(id: string, changes: object): Promise<T[]> {
+  update(id: number, changes: object): Promise<T[]> {
     return db(this.table)
       .where({ id })
       .update(changes)
@@ -38,7 +36,7 @@ export class BaseRepository<T> {
       });
   }
 
-  remove(id: string): Promise<number> {
+  remove(id: number): Promise<number> {
     return db(this.table).where({ id }).del();
   }
 }

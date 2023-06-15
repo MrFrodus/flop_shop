@@ -4,14 +4,14 @@ import { productReviewController } from "../controller/productReview";
 
 const productReviewRouter = express.Router();
 
-productReviewRouter.get("/:id", productReviewController.getById);
+productReviewRouter.get("/:id(\\d+)/", productReviewController.getById);
 
 productReviewRouter.get("/", productReviewController.getAll);
 
 productReviewRouter.post("/", productReviewController.add);
 
-productReviewRouter.patch("/:id", productReviewController.update);
+productReviewRouter.patch("/:id(\\d+)/", productReviewController.update);
 
-productReviewRouter.delete("/:id", productReviewController.remove)
+productReviewRouter.delete("/:id(\\d+)/", productReviewController.remove);
 
 export default productReviewRouter;
