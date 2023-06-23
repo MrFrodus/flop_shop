@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface IProduct {
     id: number,
     user_id: number,
@@ -13,5 +15,5 @@ export interface IProduct {
     content: string,
     starts_at: Date,
     ends_at: Date,
-    user?: object
+    user: IUser | null
 }

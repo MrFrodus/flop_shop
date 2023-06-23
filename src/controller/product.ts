@@ -1,10 +1,10 @@
 import { BaseController } from "./baseController";
 import { ProductService, productService } from "../service/product";
 import express from "express";
-import { BaseModel } from "../models/baseModel";
 import { ApiError } from "../error/ApiError";
+import { IProduct } from "../models/product";
 
-class ProductController extends BaseController {
+class ProductController extends BaseController<IProduct> {
   protected service: ProductService;
 
   constructor(service: ProductService) {
@@ -16,14 +16,14 @@ class ProductController extends BaseController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const item: BaseModel | null = await this.service.getByIdwithRelation(
+    const product: IProduct | null = await this.service.getByIdwithRelation(
       parseInt(req.params.id as string)
     );
 
-    if (!item) {
-      return next(ApiError.notFound("Such item doesn't exist"));
+    if (!product) {
+      return next(ApiError.notFound("Such product doesn't"));
     }
-    return res.status(200).json(item);
+    return res.status(200).json(product);
   };
 }
 

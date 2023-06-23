@@ -12,6 +12,6 @@ productReviewRouter.post("/", productReviewController.add);
 
 productReviewRouter.patch("/:id(\\d+)/", productReviewController.update);
 
-productReviewRouter.delete("/:id(\\d+)/", productReviewController.remove);
+productReviewRouter.delete("/:id(\\d+)/", productReviewController.delete);
 
 export default productReviewRouter;

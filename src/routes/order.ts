@@ -12,6 +12,8 @@ orderRouter.post("/", orderController.add);
 
 orderRouter.patch("/:id(\\d+)/", orderController.update);
 
-orderRouter.delete("/:id(\\d+)/", orderController.remove);
+orderRouter.delete("/:id(\\d+)/", orderController.delete);
+
+orderRouter.post("/newOrder", orderController.createNewOrder);
 
 export default orderRouter;

@@ -5,7 +5,6 @@ export interface IOrder {
     sub_total: number,
     item_discount: number,
     tax: number,
-    shipping: number,
     total: number,
     promo: string,
     discount: number,
@@ -16,9 +15,5 @@ export interface IOrder {
     mobile: string,
     email: string,
     commentary: string,
-    address: string,
-    city: string,
-    region: string,
-    country: string,
     content: string,
 }

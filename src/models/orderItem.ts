@@ -1,10 +1,12 @@
+import { IProduct } from "./product";
+
 export interface IOrderItem {
-    id: number,
+    id?: number,
     product_id: number,
-    order_id: number,
-    sku: number,
-    price: number,
-    discount: number,
+    order_id?: number,
+    total_price: number,
+    discount?: number,
     quantity: number,
-    content: string,
+    content?: string,
+    product?: IProduct | null,
 }

@@ -4,7 +4,7 @@ import express from "express";
 import { IUser } from "../models/user";
 import { ApiError } from "../error/ApiError";
 
-class UserController extends BaseController {
+class UserController extends BaseController<IUser> {
   protected service: UserService;
 
   constructor(service: UserService) {
@@ -27,7 +27,7 @@ class UserController extends BaseController {
   };
 
   register = async (req: express.Request, res: express.Response) => {
-    const newUserId = await this.service.register(req.body);
+    const newUserId: number[] = await this.service.register(req.body);
     return res.status(201).json(newUserId[0]);
   };
 
@@ -36,9 +36,9 @@ class UserController extends BaseController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const user = await this.service.getById(req.user.user_id);
+    const user: IUser | null = await this.service.getById(req.user.user_id);
     if (!user) {
-      return next(ApiError.notFound("Such item doesn't exist"));
+      return next(ApiError.notFound("Such user doesn't exist"));
     }
 
     return res.status(200).json(user);

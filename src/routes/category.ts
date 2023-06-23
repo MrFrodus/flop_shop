@@ -12,6 +12,6 @@ categoryRouter.post("/", categoryController.add);
 
 categoryRouter.patch("/:id(\\d+)/", categoryController.update);
 
-categoryRouter.delete("/:id(\\d+)/", categoryController.remove);
+categoryRouter.delete("/:id(\\d+)/", categoryController.delete);
 
 export default categoryRouter;

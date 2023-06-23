@@ -3,7 +3,7 @@ import { BaseService } from "./baseService";
 import { UserRepository, userRepository } from "../repository/user";
 import { authService } from "./auth";
 
-export class UserService extends BaseService {
+export class UserService extends BaseService<IUser> {
   protected repository: UserRepository;
 
   constructor(repository: UserRepository) {
@@ -11,11 +11,11 @@ export class UserService extends BaseService {
   }
 
   getByEmail = async (email: string): Promise<IUser | null> => {
-    const user = await this.repository.getByEmail(email);
-    if (!user.length) {
+    const [user] = await this.repository.getByEmail(email);
+    if (!user) {
       return null;
     } else {
-      return user[0]!;
+      return user;
     }
   };
 

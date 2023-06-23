@@ -1,10 +1,9 @@
 import { BaseRepository } from "../repository/baseRepository";
-import { BaseModel } from "../models/baseModel";
 
-export class BaseService {
-  protected repository: BaseRepository<BaseModel>;
+export class BaseService<T> {
+  protected repository: BaseRepository<T>;
 
-  constructor(repository: BaseRepository<BaseModel>) {
+  constructor(repository: BaseRepository<T>) {
     this.repository = repository;
   }
 
@@ -12,35 +11,30 @@ export class BaseService {
     return this.repository.add(item);
   }
 
-  getById = async (id: number): Promise<BaseModel | null> => {
-    const item = await this.repository.getById(id);
-    if (!item.length || !item) {
+  getById = async (id: number): Promise<T | null> => {
+    const [item] = await this.repository.getById(id);
+    if (!item) {
       return null;
     } else {
-      return item[0]!;
+      return item;
     }
   };
 
-  getAll = async (): Promise<BaseModel[][] | null> => {
-    const items = await this.repository.getAll();
-    if (!items.length || !items) {
+  getAll = async (): Promise<T[][]> => {
+    return await this.repository.getAll();
+  };
+
+  update = async (id: number, changes: object): Promise<T | null> => {
+    const [updatedItem] = await this.repository.update(id, changes);
+    if (!updatedItem) {
       return null;
     } else {
-      return items;
+      return updatedItem!;
     }
   };
 
-  update = async (id: number, changes: object): Promise<BaseModel | null> => {
-    const updatedItem = await this.repository.update(id, changes);
-    if (!updatedItem.length || !updatedItem) {
-      return null;
-    } else {
-      return updatedItem[0]!;
-    }
-  };
-
-  remove = async (id: number): Promise<number> => {
-    const removedItem = await this.repository.remove(id);
+  delete = async (id: number): Promise<number> => {
+    const removedItem = await this.repository.delete(id);
     return removedItem;
   };
 }

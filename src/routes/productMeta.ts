@@ -12,6 +12,6 @@ productMetaRouter.post("/", productMetaController.add);
 
 productMetaRouter.patch("/:id(\\d+)/", productMetaController.update);
 
-productMetaRouter.delete("/:id(\\d+)/", productMetaController.remove);
+productMetaRouter.delete("/:id(\\d+)/", productMetaController.delete);
 
 export default productMetaRouter;

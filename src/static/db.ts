@@ -62,7 +62,6 @@ const categorySelectedFields: string[] = [
 const cartSelectedFields: string[] = [
   "id",
   "user_id",
-  "status",
   "content",
 ];
 
@@ -71,13 +70,11 @@ const cartItemSelectedFields: string[] = [
   "id",
   "product_id",
   "cart_id",
-  "sku",
-  "price",
-  "discount",
   "quantity",
-  "active",
   "content",
 ]
+
+
 
 const orderSelectedFields: string[] = [
   "id",
@@ -108,11 +105,10 @@ const orderItemSelectedFields: string[] = [
   "id",
   "product_id",
   "order_id",
-  "sku",
-  "price",
   "discount",
   "quantity",
-  "content"
+  "content",
+  "total_price",
 ]
 
 const transactionSelectedFields: string[] = [

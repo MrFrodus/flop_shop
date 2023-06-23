@@ -12,6 +12,6 @@ transactionRouter.post("/", transactionController.add);
 
 transactionRouter.patch("/:id(\\d+)/", transactionController.update);
 
-transactionRouter.delete("/:id(\\d+)/", transactionController.remove);
+transactionRouter.delete("/:id(\\d+)/", transactionController.delete);
 
 export default transactionRouter;

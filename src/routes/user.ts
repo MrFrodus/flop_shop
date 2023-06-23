@@ -14,7 +14,7 @@ userRouter.post("/", addUserValidation, userController.add);
 
 userRouter.patch("/:id(\\d+)/", updateUserValidation, userController.update);
 
-userRouter.delete("/:id(\\d+)/", userController.remove);
+userRouter.delete("/:id(\\d+)/", userController.delete);
 
 userRouter.post("/email", authenticateToken, userController.getByEmail);
 

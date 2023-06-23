@@ -1,4 +1,3 @@
-import { BaseModel } from "src/models/baseModel";
 import db from "../db/db";
 
 export class BaseRepository<T> {
@@ -36,7 +35,7 @@ export class BaseRepository<T> {
       });
   }
 
-  remove(id: number): Promise<number> {
+  delete(id: number): Promise<number> {
     return db(this.table).where({ id }).del();
   }
 }

@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-let sec = process.env.ACCESS_TOKEN_SECRET as string;
+const sec = process.env.ACCESS_TOKEN_SECRET as string;
 
 class AuthService {
   createToken = (data: object): string => {
@@ -22,8 +22,6 @@ class AuthService {
     const hashedPassword = await bcrypt.hash(password, salt);
     return hashedPassword;
   };
-
-
 }
 
 export const authService = new AuthService();

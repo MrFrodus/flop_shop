@@ -1,37 +1,31 @@
 import { BaseService } from "./baseService";
 import { ProductRepository, productRepository } from "../repository/product";
-import { BaseModel } from "../models/baseModel";
 import { userRepository } from "../repository/user";
+import { IProduct } from "../models/product";
+import { IUser } from "src/models/user";
 
-export class ProductService extends BaseService {
+export class ProductService extends BaseService<IProduct> {
   protected repository: ProductRepository;
 
   constructor(repository: ProductRepository) {
     super(repository);
   }
 
-  getByIdwithRelation = async (id: number): Promise<BaseModel | null> => {
-    const productArray = await this.repository.getById(id);
-    if (!productArray.length) {
+  getByIdwithRelation = async (id: number): Promise<IProduct | null> => {
+    const [product] = await this.repository.getById(id);
+    if (!product) {
       return null;
-    };
-
-    const productObject = productArray[0];
-
-    const userArray = await userRepository.getById(productObject!.user_id);
-
-    const userObject = userArray[0];
-
-    const user = {
-      id: userObject?.id,
-      email: userObject?.email,
-      admin: userObject?.admin,
-      vendor: userObject?.vendor,
     }
 
-    productObject!.user = userObject;
+    const [user] = await userRepository.getById(product.user_id);
 
-    return productObject!;
+    if (user) {
+      product.user = user;
+    } else {
+      product.user = null;
+    }
+
+    return product;
   };
 }
 
