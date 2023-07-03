@@ -4,20 +4,9 @@ import express from "express";
 
 const addUserSchema = Joi.object()
   .keys({
-    first_name: Joi.string(),
-    last_name: Joi.string(),
-    middle_name: Joi.string(),
-    mobile: Joi.string(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-    admin: Joi.number().required(),
-    vendor: Joi.number().required(),
-    intro: Joi.string(),
-    address: Joi.string(),
-    city: Joi.string(),
-    region: Joi.string(),
-    country: Joi.string(),
-    profile: Joi.string(),
+    product_id: Joi.number().required(),
+    key: Joi.string().required(),
+    content: Joi.string(),
   })
   .required()
   .min(1);
@@ -38,20 +27,9 @@ const addUserValidation = async (
 
 const updateUserSchema = Joi.object()
   .keys({
-    first_name: Joi.string(),
-    last_name: Joi.string(),
-    middle_name: Joi.string(),
-    mobile: Joi.string(),
-    email: Joi.string().email(),
-    password: Joi.string(),
-    admin: Joi.number(),
-    vendor: Joi.number(),
-    intro: Joi.string(),
-    address: Joi.string(),
-    city: Joi.string(),
-    region: Joi.string(),
-    country: Joi.string(),
-    profile: Joi.string(),
+    product_id: Joi.number(),
+    key: Joi.string(),
+    content: Joi.string(),
   })
   .required()
   .min(1);

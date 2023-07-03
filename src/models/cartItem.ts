@@ -1,12 +1,12 @@
 import { IProduct } from "./product";
 
 export interface ICartItem {
-    id: number,
+    id?: number,
     product_id: number,
     cart_id: number,
     quantity: number,
-    content: string,
-    product: IProduct | null,
+    content?: string,
+    product?: IProduct | null,
     product_user_id?: number,
     product_title?: string,
     product_meta_title?: string,

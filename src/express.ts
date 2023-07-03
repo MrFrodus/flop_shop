@@ -1,5 +1,8 @@
 import express from "express";
 import cors from "cors";
+import * as dotenv from "dotenv";
+import apiErrorHandler from "./error/ApiErrorHandler";
+
 import userRouter from "./routes/user";
 import productRouter from "./routes/product";
 import productMetaRouter from "./routes/productMeta";
@@ -10,10 +13,8 @@ import cartItemRouter from "./routes/cartItem";
 import orderRouter from "./routes/order";
 import orderItemRouter from "./routes/orderItem";
 import transactionRouter from "./routes/transaction";
-import * as dotenv from 'dotenv';
 import authRouter from "./routes/auth";
-
-import apiErrorHandler from "./error/ApiErrorHandler";
+import shippingRouter from "./routes/shipping";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/order", orderRouter);
 app.use("/orderItem", orderItemRouter);
 app.use("/transaction", transactionRouter);
 app.use("/auth", authRouter);
+app.use("/shipping", shippingRouter);
 
 app.use(apiErrorHandler);
 

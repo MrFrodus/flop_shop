@@ -8,7 +8,7 @@ export default {
       password: "password",
       database: "flop_shop",
     },
-    useNullAsDefault: true,
+    // useNullAsDefault: true,
     pool: {
       min: 2,
       max: 10,

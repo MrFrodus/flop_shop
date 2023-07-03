@@ -1,6 +1,5 @@
 import express from "express";
 import { addUserValidation, updateUserValidation } from "../middleware/user";
-import { authenticateToken } from "../middleware/auth";
 
 import { userController } from "../controller/user";
 
@@ -16,10 +15,8 @@ userRouter.patch("/:id(\\d+)/", updateUserValidation, userController.update);
 
 userRouter.delete("/:id(\\d+)/", userController.delete);
 
-userRouter.post("/email", authenticateToken, userController.getByEmail);
+userRouter.post("/email", userController.getByEmail);
 
-userRouter.post("/reg", userController.register);
-
-userRouter.get("/me", authenticateToken, userController.me);
+userRouter.get("/me", userController.me);
 
 export default userRouter;

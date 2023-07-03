@@ -167,7 +167,7 @@ export async function up(knex: Knex): Promise<void> {
     })
     .createTable("order", (table) => {
       table.increments("id");
-      table.integer("user_id").unsigned().unique().notNullable();
+      table.integer("user_id").unsigned().notNullable();
       table
         .enum("status", [
           "Pending",
@@ -194,7 +194,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("last_name", 50).nullable();
       table.string("middle_name", 50).nullable();
       table.string("mobile", 15).nullable();
-      table.string("email", 50).notNullable().unique();
+      table.string("email", 50).notNullable();
       table.string("commentary", 100).nullable();
       table.text("content").nullable();
       table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());

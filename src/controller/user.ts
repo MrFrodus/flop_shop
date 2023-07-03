@@ -26,11 +26,6 @@ class UserController extends BaseController<IUser> {
     return res.status(200).json(user);
   };
 
-  register = async (req: express.Request, res: express.Response) => {
-    const newUserId: number[] = await this.service.register(req.body);
-    return res.status(201).json(newUserId[0]);
-  };
-
   me = async (
     req: express.Request,
     res: express.Response,

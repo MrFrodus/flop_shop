@@ -113,13 +113,24 @@ const orderItemSelectedFields: string[] = [
 
 const transactionSelectedFields: string[] = [
   "id",
-  "user_id",
   "order_id",
   "code",
   "type",
   "mode",
   "status",
 ]
+
+const shippingSelectdFields: string[] = [
+  "id",
+  "order_id",
+  "user_id",
+  "region",
+  "city",
+  "country",
+  "address",
+  "price",
+  "method",
+] 
 
 export const dbStaticData = {
   selectedFields: {
@@ -133,5 +144,6 @@ export const dbStaticData = {
     order: orderSelectedFields,
     orderItem: orderItemSelectedFields,
     transaction: transactionSelectedFields,
+    shipping: shippingSelectdFields,
   },
 };
