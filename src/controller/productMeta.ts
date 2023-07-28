@@ -2,7 +2,6 @@ import { BaseController } from "./baseController";
 import { ProductMetaService, productMetaService } from "../service/productMeta";
 import { IProductMeta } from "src/models/productMeta";
 
-
 class ProductMetaController extends BaseController<IProductMeta> {
   protected service: ProductMetaService;
 
@@ -11,4 +10,6 @@ class ProductMetaController extends BaseController<IProductMeta> {
   }
 }
 
-export const productMetaController = new ProductMetaController(productMetaService);
+export const productMetaController = new ProductMetaController(
+  productMetaService
+);

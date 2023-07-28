@@ -1,7 +1,7 @@
 import express from "express";
 
 import { cartController } from "../controller/cart";
-import { updateCartItemValidation, addCartItemValidation } from "src/middleware/cartItem";
+import { updateCartValidation, addCartValidation } from "../middleware/cart";
 
 const cartRouter = express.Router();
 
@@ -9,9 +9,9 @@ cartRouter.get("/:id(\\d+)/", cartController.getById);
 
 cartRouter.get("/", cartController.getAll);
 
-cartRouter.post("/", addCartItemValidation, cartController.add);
+cartRouter.post("/", addCartValidation, cartController.add);
 
-cartRouter.patch("/:id(\\d+)/", updateCartItemValidation, cartController.update);
+cartRouter.patch("/:id(\\d+)/", updateCartValidation, cartController.update);
 
 cartRouter.delete("/:id(\\d+)/", cartController.delete);
 

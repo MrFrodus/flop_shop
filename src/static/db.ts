@@ -31,6 +31,7 @@ const productSelectedFields: string[] = [
   "content",
   "starts_at",
   "ends_at",
+  "image",
 ];
 
 const productMetaSelectedFields: string[] = [

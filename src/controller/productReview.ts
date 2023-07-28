@@ -1,7 +1,9 @@
 import { BaseController } from "./baseController";
-import { ProductReviewService, productReviewService } from "../service/productReview";
+import {
+  ProductReviewService,
+  productReviewService,
+} from "../service/productReview";
 import { IProductReview } from "../models/productReview";
-
 
 class ProductReviewController extends BaseController<IProductReview> {
   protected service: ProductReviewService;
@@ -11,4 +13,6 @@ class ProductReviewController extends BaseController<IProductReview> {
   }
 }
 
-export const productReviewController = new ProductReviewController(productReviewService);
+export const productReviewController = new ProductReviewController(
+  productReviewService
+);

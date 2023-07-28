@@ -1,5 +1,5 @@
-import { IUserLogin } from "./../models/userLogin";
 import express from "express";
+import { IUserLogin } from "./../models/userLogin";
 import { userService } from "../service/user";
 import { ApiError } from "../error/ApiError";
 import { authService } from "../service/auth";

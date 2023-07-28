@@ -15,5 +15,6 @@ export interface IProduct {
     content: string,
     starts_at: Date,
     ends_at: Date,
-    user: IUser | null
+    user: IUser | null,
+    image: string,
 }

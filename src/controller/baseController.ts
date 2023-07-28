@@ -1,8 +1,8 @@
-import { BaseService } from "../service/baseService";
 import express from "express";
+import { BaseService } from "../service/baseService";
 import { ApiError } from "../error/ApiError";
 
-export class BaseController<T> {
+export class BaseController<T extends object> {
   protected service: BaseService<T>;
 
   constructor(service: BaseService<T>) {
@@ -24,18 +24,14 @@ export class BaseController<T> {
     return res.status(200).json(item);
   };
 
-  getAll = async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
+  getAll = async (req: express.Request, res: express.Response) => {
     const items: T[][] = await this.service.getAll();
 
     return res.status(200).json(items);
   };
 
   add = async (req: express.Request, res: express.Response) => {
-    const newItemId: number[] = await this.service.add(req.body as object);
+    const newItemId: number[] = await this.service.add(req.body as T);
     return res.status(201).json(newItemId[0]);
   };
 

@@ -1,7 +1,7 @@
 import express from "express";
 
 import { categoryController } from "../controller/category";
-import { addCategoryValidation, updateCategoryValidation } from "src/middleware/category";
+import { addCategoryValidation, updateCategoryValidation } from "../middleware/category";
 
 const categoryRouter = express.Router();
 

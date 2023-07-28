@@ -1,6 +1,6 @@
+import express from "express";
 import { BaseController } from "./baseController";
 import { CartService, cartService } from "../service/cart";
-import express from "express"
 import { ICart } from "../models/cart";
 import { ApiError } from "../error/ApiError";
 
@@ -16,13 +16,15 @@ class CartController extends BaseController<ICart> {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const cart = await this.service.getWithCartItems(parseInt(req.params.id as string));
+    const cart = await this.service.getWithCartItems(
+      parseInt(req.params.id as string)
+    );
     if (!cart) {
-      return next(ApiError.notFound("Such cart doesn't exist"))
+      return next(ApiError.notFound("Such cart doesn't exist"));
     }
-    
-    res.status(200).json(cart)
-  }
+
+    res.status(200).json(cart);
+  };
 }
 
 export const cartController = new CartController(cartService);

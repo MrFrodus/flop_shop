@@ -1,6 +1,19 @@
-import Joi from "joi";
-import { ApiError } from "../error/ApiError";
 import express from "express";
+import Joi from "joi";
+import multer from "multer";
+import path from "path";
+import { ApiError } from "../error/ApiError";
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./images");
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.slug + "_" + new Date().toISOString().replace(/:/g, "-") + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
 
 const addProductSchema = Joi.object()
   .keys({
@@ -17,6 +30,7 @@ const addProductSchema = Joi.object()
     content: Joi.string(),
     starts_at: Joi.date(),
     ends_at: Joi.date(),
+    image: Joi.string(),
   })
   .required()
   .min(1);
@@ -68,4 +82,6 @@ const updateProductValidation = async (
   }
 };
 
-export { addProductValidation, updateProductValidation };
+
+
+export { addProductValidation, updateProductValidation, upload };
