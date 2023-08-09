@@ -4,12 +4,11 @@ import ApiError from "./ApiError";
 const apiErrorHandler = (
   err: Error,
   req: express.Request,
-  res: express.Response
+  res: express.Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  next: express.NextFunction
 ): express.Response => {
   if (err instanceof ApiError) {
-    console.log(err.code);
-    console.log(err);
-
     return res.status(err.code).json(err);
   }
 
