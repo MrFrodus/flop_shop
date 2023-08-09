@@ -1,6 +1,5 @@
 import express from "express";
-
-import { cartController } from "../controller/cart";
+import cartController from "../controller/cart";
 import { updateCartValidation, addCartValidation } from "../middleware/cart";
 
 const cartRouter = express.Router();

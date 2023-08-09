@@ -33,6 +33,6 @@
     "noUnusedLocals": false, // Report errors on unused local variables.
     "noUnusedParameters": false // Report errors on unused parameters in functions
   },
-  "include": ["src/**/*"],
+  "include": ["src/", ".eslintrc.js"],
   "exclude": ["node_modules"]
 }

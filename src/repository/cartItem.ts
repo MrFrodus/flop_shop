@@ -1,6 +1,6 @@
-import { staticData } from "../static/index";
+import staticData from "../static/index";
 import { ICartItem } from "../models/cartItem";
-import { BaseRepository } from "./baseRepository";
+import BaseRepository from "./baseRepository";
 import db from "../db/db";
 
 export class CartItemRepository extends BaseRepository<ICartItem> {
@@ -8,22 +8,24 @@ export class CartItemRepository extends BaseRepository<ICartItem> {
     const cartFields = this.selectedColumns;
     const productFields = staticData.db.selectedFields.product.map(
       (productField) => {
-        return "product." + productField + ` as product_${productField}`;
+        return `product.${productField} as product_${productField}`;
       }
     );
+
     return db("cart_item")
       .select(...cartFields, ...productFields)
       .leftJoin("product", "cart_item.product_id", "=", "product.id")
       .where({ cart_id });
   }
-  
+
   getMany(ids: number[]): Promise<ICartItem[]> {
     const cartFields = this.selectedColumns;
     const productFields = staticData.db.selectedFields.product.map(
       (productField) => {
-        return "product." + productField + ` as product_${productField}`;
+        return `product.${productField} as product_${productField}`;
       }
     );
+
     return db("cart_item")
       .select(...cartFields, ...productFields)
       .leftJoin("product", "cart_item.product_id", "=", "product.id")
@@ -46,6 +48,6 @@ export class CartItemRepository extends BaseRepository<ICartItem> {
 export const cartItemRepository = new CartItemRepository(
   "cart_item",
   staticData.db.selectedFields.cartItem.map((value) => {
-    return "cart_item." + value;
+    return `cart_item.${value}`;
   })
 );

@@ -1,12 +1,12 @@
-import { staticData } from "../static/index";
+import staticData from "../static/index";
 import { ITransaction } from "../models/transaction";
-import { BaseRepository } from "./baseRepository";
+import BaseRepository from "./baseRepository";
 
 export class TransactionRepository extends BaseRepository<ITransaction> {}
 
 export const transactionRepository = new TransactionRepository(
   "transaction",
   staticData.db.selectedFields.transaction.map((value) => {
-    return "transaction" + value;
+    return `transaction${value}`;
   })
 );

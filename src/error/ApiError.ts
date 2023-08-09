@@ -1,5 +1,6 @@
-export class ApiError {
+export default class ApiError {
   code: number;
+
   message: string;
 
   constructor(code: number, message: string) {
@@ -23,11 +24,15 @@ export class ApiError {
     return new ApiError(401, msg);
   }
 
-  //no credentials or invalid credentials
+  // no credentials or invalid credentials
 
   static forbidden(msg: string) {
     return new ApiError(403, msg);
   }
 
-  //not enough privileges to perform an action on a resource
+  // not enough privileges to perform an action on a resource
+
+  static conflict(msg: string) {
+    return new ApiError(409, msg);
+  }
 }

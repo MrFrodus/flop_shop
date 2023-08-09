@@ -1,10 +1,16 @@
 import express from "express";
-import { IUserLogin } from "./../models/userLogin";
+import { IUserLogin } from "../models/userLogin";
 import { userService } from "../service/user";
-import { ApiError } from "../error/ApiError";
-import { authService } from "../service/auth";
+import ApiError from "../error/ApiError";
+import { AuthService, authService } from "../service/auth";
 
 class AuthController {
+  protected service: AuthService;
+
+  constructor(service: AuthService) {
+    this.service = service;
+  }
+
   logIn = async (
     req: express.Request,
     res: express.Response,
@@ -16,12 +22,12 @@ class AuthController {
     if (!userData) {
       return next(ApiError.unauthorized("Wrong email"));
     }
-    if (!authService.passwordCheck(req.body.password, userData.password)) {
+    if (!this.service.passwordCheck(req.body.password, userData.password)) {
       return next(ApiError.unauthorized("Wrong password"));
     }
 
     return res.status(200).json(
-      authService.createToken({
+      this.service.createToken({
         user_id: userData.id,
         email: userData.email,
         admin: userData.admin,
@@ -29,10 +35,21 @@ class AuthController {
     );
   };
 
-  register = async (req: express.Request, res: express.Response) => {
-    const newUserId = await authService.register(req.body);
-    return res.status(201).json(newUserId);
+  register = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const newUserId: number = await this.service.register(req.body);
+
+      return res.status(201).json(newUserId);
+    } catch (error) {
+      return next(error);
+    }
   };
 }
 
-export const authController = new AuthController();
+const authController = new AuthController(authService);
+
+export default authController;

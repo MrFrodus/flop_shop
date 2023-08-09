@@ -1,15 +1,11 @@
 import express from "express";
-import { BaseController } from "./baseController";
+import BaseController from "./baseController";
 import { CartItemService, cartItemService } from "../service/cartItem";
-import { ApiError } from "../error/ApiError";
+import ApiError from "../error/ApiError";
 import { ICartItem } from "../models/cartItem";
 
 class CartItemController extends BaseController<ICartItem> {
   protected service: CartItemService;
-
-  constructor(service: CartItemService) {
-    super(service);
-  }
 
   getByIdWithRelation = async (
     req: express.Request,
@@ -17,7 +13,7 @@ class CartItemController extends BaseController<ICartItem> {
     next: express.NextFunction
   ) => {
     const cartItem: ICartItem | null = await this.service.getByIdWithRelation(
-      parseInt(req.params.id as string)
+      Number(req.params.id as string)
     );
 
     if (!cartItem) {
@@ -27,13 +23,9 @@ class CartItemController extends BaseController<ICartItem> {
     return res.status(200).json(cartItem);
   };
 
-  getByCartId = async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
+  getByCartId = async (req: express.Request, res: express.Response) => {
     const cartItems: ICartItem[] = await this.service.getByCartId(
-      parseInt(req.params.id as string)
+      Number(req.params.id as string)
     );
 
     return res.status(200).json(cartItems);
@@ -45,7 +37,7 @@ class CartItemController extends BaseController<ICartItem> {
     next: express.NextFunction
   ) => {
     const numDeletedItems = await this.service.deleteByCartId(
-      parseInt(req.params.id as string)
+      Number(req.params.id as string)
     );
 
     if (numDeletedItems === 0) {
@@ -55,15 +47,13 @@ class CartItemController extends BaseController<ICartItem> {
     return res.status(200).json(numDeletedItems);
   };
 
-  getMany = async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
+  getMany = async (req: express.Request, res: express.Response) => {
     const cartItems = await this.service.getMany(req.body.ids);
 
     return res.status(200).json(cartItems);
   };
 }
 
-export const cartItemController = new CartItemController(cartItemService);
+const cartItemController = new CartItemController(cartItemService);
+
+export default cartItemController;

@@ -1,6 +1,5 @@
 import express from "express";
-
-import { authController } from "../controller/auth";
+import authController from "../controller/auth";
 import { registrationValidation, logInValidation } from "../middleware/auth";
 
 const authRouter = express.Router();

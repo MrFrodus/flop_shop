@@ -1,6 +1,6 @@
-import { BaseRepository } from "../repository/baseRepository";
+import BaseRepository from "../repository/baseRepository";
 
-export class BaseService<T> {
+export default class BaseService<T> {
   protected repository: BaseRepository<T>;
 
   constructor(repository: BaseRepository<T>) {
@@ -15,26 +15,27 @@ export class BaseService<T> {
     const [item] = await this.repository.getById(id);
     if (!item) {
       return null;
-    } else {
-      return item;
     }
+
+    return item;
   };
 
   getAll = async (): Promise<T[][]> => {
-    return await this.repository.getAll();
+    return this.repository.getAll();
   };
 
   update = async (id: number, changes: object): Promise<T | null> => {
     const [updatedItem] = await this.repository.update(id, changes);
     if (!updatedItem) {
       return null;
-    } else {
-      return updatedItem!;
     }
+
+    return updatedItem!;
   };
 
   delete = async (id: number): Promise<number> => {
     const removedItem = await this.repository.delete(id);
+
     return removedItem;
   };
 }

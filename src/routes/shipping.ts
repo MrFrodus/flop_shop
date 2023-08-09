@@ -1,6 +1,6 @@
 import express from "express";
 
-import { shippingController } from "../controller/shipping";
+import shippingController from "../controller/shipping";
 
 const shippingRouter = express.Router();
 

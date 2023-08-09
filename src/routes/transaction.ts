@@ -1,6 +1,5 @@
 import express from "express";
-
-import { transactionController } from "../controller/transaction";
+import transactionController from "../controller/transaction";
 
 const transactionRouter = express.Router();
 

@@ -1,5 +1,7 @@
-import { dbStaticData } from './db';
+import dbStaticData from "./db";
 
-export const staticData = {
-    db: dbStaticData
-}
+const staticData = {
+  db: dbStaticData,
+};
+
+export default staticData;

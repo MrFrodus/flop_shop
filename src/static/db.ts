@@ -60,12 +60,7 @@ const categorySelectedFields: string[] = [
   "content",
 ];
 
-const cartSelectedFields: string[] = [
-  "id",
-  "user_id",
-  "content",
-];
-
+const cartSelectedFields: string[] = ["id", "user_id", "content"];
 
 const cartItemSelectedFields: string[] = [
   "id",
@@ -73,9 +68,7 @@ const cartItemSelectedFields: string[] = [
   "cart_id",
   "quantity",
   "content",
-]
-
-
+];
 
 const orderSelectedFields: string[] = [
   "id",
@@ -100,7 +93,7 @@ const orderSelectedFields: string[] = [
   "region",
   "country",
   "content",
-]
+];
 
 const orderItemSelectedFields: string[] = [
   "id",
@@ -110,7 +103,7 @@ const orderItemSelectedFields: string[] = [
   "quantity",
   "content",
   "total_price",
-]
+];
 
 const transactionSelectedFields: string[] = [
   "id",
@@ -119,7 +112,7 @@ const transactionSelectedFields: string[] = [
   "type",
   "mode",
   "status",
-]
+];
 
 const shippingSelectdFields: string[] = [
   "id",
@@ -131,9 +124,9 @@ const shippingSelectdFields: string[] = [
   "address",
   "price",
   "method",
-] 
+];
 
-export const dbStaticData = {
+const dbStaticData = {
   selectedFields: {
     user: userSelectedFields,
     product: productSelectedFields,
@@ -148,3 +141,5 @@ export const dbStaticData = {
     shipping: shippingSelectdFields,
   },
 };
+
+export default dbStaticData;

@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { ApiError } from "../error/ApiError";
 import express from "express";
+import ApiError from "../error/ApiError";
 
 const addCategorySchema = Joi.object()
   .keys({
@@ -8,7 +8,7 @@ const addCategorySchema = Joi.object()
     title: Joi.string().required(),
     meta_title: Joi.string(),
     slug: Joi.string().required(),
-    content: Joi.string()
+    content: Joi.string(),
   })
   .required()
   .min(1);
@@ -20,10 +20,12 @@ const addCategoryValidation = async (
 ) => {
   try {
     await addCategorySchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 
@@ -33,7 +35,7 @@ const updateCategorySchema = Joi.object()
     title: Joi.string(),
     meta_title: Joi.string(),
     slug: Joi.string(),
-    content: Joi.string()
+    content: Joi.string(),
   })
   .required()
   .min(1);
@@ -45,10 +47,12 @@ const updateCategoryValidation = async (
 ) => {
   try {
     await updateCategorySchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 

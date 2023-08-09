@@ -1,17 +1,13 @@
-import { BaseController } from "./baseController";
+import express from "express";
+import { ITransaction } from "src/models/transaction";
+import BaseController from "./baseController";
 import { OrderService, orderService } from "../service/order";
 import { IOrder } from "../models/order";
-import express from "express";
-import { ApiError } from "../error/ApiError";
+import ApiError from "../error/ApiError";
 import { IShipping } from "../models/shipping";
-import { ITransaction } from "src/models/transaction";
 
 class OrderController extends BaseController<IOrder> {
   protected service: OrderService;
-
-  constructor(service: OrderService) {
-    super(service);
-  }
 
   addWithRelations = async (
     req: express.Request,
@@ -35,4 +31,6 @@ class OrderController extends BaseController<IOrder> {
   };
 }
 
-export const orderController = new OrderController(orderService);
+const orderController = new OrderController(orderService);
+
+export default orderController;

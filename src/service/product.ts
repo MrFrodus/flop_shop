@@ -1,15 +1,10 @@
-import { BaseService } from "./baseService";
+import BaseService from "./baseService";
 import { ProductRepository, productRepository } from "../repository/product";
 import { userRepository } from "../repository/user";
 import { IProduct } from "../models/product";
-import { IUser } from "src/models/user";
 
 export class ProductService extends BaseService<IProduct> {
   protected repository: ProductRepository;
-
-  constructor(repository: ProductRepository) {
-    super(repository);
-  }
 
   getByIdwithRelation = async (id: number): Promise<IProduct | null> => {
     const [product] = await this.repository.getById(id);

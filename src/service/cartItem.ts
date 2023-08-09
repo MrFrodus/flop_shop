@@ -1,15 +1,10 @@
-import { BaseService } from "./baseService";
+import BaseService from "./baseService";
 import { CartItemRepository, cartItemRepository } from "../repository/cartItem";
-import { cartRepository } from "../repository/cart";
 import { productRepository } from "../repository/product";
 import { ICartItem } from "../models/cartItem";
 
 export class CartItemService extends BaseService<ICartItem> {
   protected repository: CartItemRepository;
-
-  constructor(repository: CartItemRepository) {
-    super(repository);
-  }
 
   getByIdWithRelation = async (id: number): Promise<ICartItem | null> => {
     const [cartItem] = await this.repository.getById(id);

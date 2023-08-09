@@ -1,8 +1,8 @@
 import express from "express";
-import { BaseService } from "../service/baseService";
-import { ApiError } from "../error/ApiError";
+import BaseService from "../service/baseService";
+import ApiError from "../error/ApiError";
 
-export class BaseController<T extends object> {
+export default class BaseController<T extends object> {
   protected service: BaseService<T>;
 
   constructor(service: BaseService<T>) {
@@ -15,12 +15,13 @@ export class BaseController<T extends object> {
     next: express.NextFunction
   ) => {
     const item: Awaited<T> | null = await this.service.getById(
-      parseInt(req.params.id as string)
+      Number(req.params.id as string)
     );
 
     if (!item) {
       return next(ApiError.notFound("Such item doesn't exist"));
     }
+
     return res.status(200).json(item);
   };
 
@@ -32,6 +33,7 @@ export class BaseController<T extends object> {
 
   add = async (req: express.Request, res: express.Response) => {
     const newItemId: number[] = await this.service.add(req.body as T);
+
     return res.status(201).json(newItemId[0]);
   };
 
@@ -41,13 +43,14 @@ export class BaseController<T extends object> {
     next: express.NextFunction
   ) => {
     const updatedItem: Awaited<T> | null = await this.service.update(
-      parseInt(req.params.id as string),
+      Number(req.params.id as string),
       req.body as object
     );
 
     if (!updatedItem) {
       return next(ApiError.notFound("Such item doesn't exist"));
     }
+
     return res.status(201).json(updatedItem);
   };
 
@@ -57,7 +60,7 @@ export class BaseController<T extends object> {
     next: express.NextFunction
   ) => {
     const numDeletedItems: number = await this.service.delete(
-      parseInt(req.params.id as string)
+      Number(req.params.id as string)
     );
 
     if (numDeletedItems === 0) {

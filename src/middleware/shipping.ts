@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { ApiError } from "../error/ApiError";
 import express from "express";
+import ApiError from "../error/ApiError";
 
 const addShippingSchema = Joi.object()
   .keys({
@@ -23,10 +23,12 @@ const addShippingValidation = async (
 ) => {
   try {
     await addShippingSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 
@@ -51,10 +53,12 @@ const updateShippingValidation = async (
 ) => {
   try {
     await updateShippingSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 

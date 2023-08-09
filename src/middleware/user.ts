@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { ApiError } from "../error/ApiError";
 import express from "express";
+import ApiError from "../error/ApiError";
 
 const addUserSchema = Joi.object()
   .keys({
@@ -29,10 +29,12 @@ const addUserValidation = async (
 ) => {
   try {
     await addUserSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 
@@ -63,10 +65,12 @@ const updateUserValidation = async (
 ) => {
   try {
     await updateUserSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 

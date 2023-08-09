@@ -1,19 +1,15 @@
-import { BaseService } from "./baseService";
+import BaseService from "./baseService";
 import { OrderRepository, orderRepository } from "../repository/order";
 import { IOrder } from "../models/order";
 import { cartItemRepository } from "../repository/cartItem";
 import { IOrderItem } from "../models/orderItem";
 import { orderItemRepository } from "../repository/orderItem";
 import { IShipping } from "../models/shipping";
-import { ShippingRepository, shippingRepository } from "../repository/shipping";
+import { shippingRepository } from "../repository/shipping";
 import { ITransaction } from "../models/transaction";
 
 export class OrderService extends BaseService<IOrder> {
   protected repository: OrderRepository;
-
-  constructor(repository: OrderRepository) {
-    super(repository);
-  }
 
   addWithRelations = async (newOrderData: {
     cart_items_ids: number[];
@@ -43,7 +39,7 @@ export class OrderService extends BaseService<IOrder> {
 
     newOrderData.shipping.order_id = newOrderId;
 
-    orderItems.map(function (obj) {
+    orderItems.forEach((obj) => {
       obj.order_id = newOrderId;
     });
 

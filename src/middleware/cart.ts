@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { ApiError } from "../error/ApiError";
 import express from "express";
+import ApiError from "../error/ApiError";
 
 const addCartSchema = Joi.object()
   .keys({
@@ -17,10 +17,12 @@ const addCartValidation = async (
 ) => {
   try {
     await addCartSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 
@@ -39,10 +41,12 @@ const updateCartValidation = async (
 ) => {
   try {
     await updateCartSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 

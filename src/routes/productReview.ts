@@ -1,6 +1,5 @@
 import express from "express";
-
-import { productReviewController } from "../controller/productReview";
+import productReviewController from "../controller/productReview";
 
 const productReviewRouter = express.Router();
 

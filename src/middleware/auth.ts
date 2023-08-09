@@ -3,14 +3,18 @@ import express from "express";
 import Joi from "joi";
 
 import * as dotenv from "dotenv";
-dotenv.config();
-import { ApiError } from "../error/ApiError";
+import ApiError from "../error/ApiError";
 
-let sec = process.env.ACCESS_TOKEN_SECRET as string;
+dotenv.config();
+
+const sec = process.env.ACCESS_TOKEN_SECRET as string;
 
 const registrationSchema = Joi.object()
   .keys({
+    first_name: Joi.string().required(),
+    last_name: Joi.string().required(),
     email: Joi.string().email().required(),
+    mobile: Joi.string().required(),
     password: Joi.string().required(),
     admin: Joi.number().required(),
     vendor: Joi.number().required(),
@@ -25,10 +29,12 @@ const registrationValidation = async (
 ) => {
   try {
     await registrationSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 const logInSchema = Joi.object()
@@ -46,10 +52,12 @@ const logInValidation = async (
 ) => {
   try {
     await logInSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 
@@ -59,7 +67,7 @@ const authenticateToken = (
   next: express.NextFunction
 ) => {
   try {
-    const authHeader = req.headers["authorization"];
+    const authHeader = req.headers.authorization;
 
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -69,7 +77,8 @@ const authenticateToken = (
 
     const decoded = jwt.verify(token, sec) as JwtPayload;
     req.user = decoded;
-    next();
+
+    return next();
   } catch (err) {
     return next(ApiError.unauthorized("Please authenticate"));
   }

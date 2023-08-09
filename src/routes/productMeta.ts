@@ -1,6 +1,5 @@
 import express from "express";
-
-import { productMetaController } from "../controller/productMeta";
+import productMetaController from "../controller/productMeta";
 
 const productMetaRouter = express.Router();
 

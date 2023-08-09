@@ -1,10 +1,14 @@
 import db from "../db/db";
 
-export class BaseRepository<T> {
+export default class BaseRepository<T> {
   table: string;
+
   selectedColumns: string[];
+
   joinTable: string;
+
   joinSelectedColumns: string[];
+
   joinCondition: string;
 
   constructor(table: string, selectedColumns: string[]) {

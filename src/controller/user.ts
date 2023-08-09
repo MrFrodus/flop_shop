@@ -1,15 +1,11 @@
-import { BaseController } from "./baseController";
-import { UserService, userService } from "../service/user";
 import express from "express";
+import BaseController from "./baseController";
+import { UserService, userService } from "../service/user";
 import { IUser } from "../models/user";
-import { ApiError } from "../error/ApiError";
+import ApiError from "../error/ApiError";
 
 class UserController extends BaseController<IUser> {
   protected service: UserService;
-
-  constructor(service: UserService) {
-    super(service);
-  }
 
   getByEmail = async (
     req: express.Request,
@@ -23,6 +19,7 @@ class UserController extends BaseController<IUser> {
     if (!user) {
       return next(ApiError.notFound("Such user doesn't exist"));
     }
+
     return res.status(200).json(user);
   };
 
@@ -40,4 +37,6 @@ class UserController extends BaseController<IUser> {
   };
 }
 
-export const userController = new UserController(userService);
+const userController = new UserController(userService);
+
+export default userController;

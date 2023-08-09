@@ -1,19 +1,24 @@
+import path from "path";
 import express from "express";
 import Joi from "joi";
 import multer from "multer";
-import path from "path";
-import { ApiError } from "../error/ApiError";
+import ApiError from "../error/ApiError";
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination(req, file, cb) {
     cb(null, "./images");
   },
-  filename: function (req, file, cb) {
-    cb(null, req.body.slug + "_" + new Date().toISOString().replace(/:/g, "-") + path.extname(file.originalname));
+  filename(req, file, cb) {
+    cb(
+      null,
+      `${req.body.slug}_${new Date()
+        .toISOString()
+        .replace(/:/g, "-")}${path.extname(file.originalname)}`
+    );
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 const addProductSchema = Joi.object()
   .keys({
@@ -42,10 +47,12 @@ const addProductValidation = async (
 ) => {
   try {
     await addProductSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
 
@@ -75,13 +82,13 @@ const updateProductValidation = async (
 ) => {
   try {
     await updateProductSchema.validateAsync(req.body);
+
     return next();
   } catch (err) {
     console.log(err);
-    next(ApiError.badRequest(err.message));
+
+    return next(ApiError.badRequest(err.message));
   }
 };
-
-
 
 export { addProductValidation, updateProductValidation, upload };
