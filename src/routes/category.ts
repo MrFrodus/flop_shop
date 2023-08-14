@@ -21,4 +21,8 @@ categoryRouter.patch(
 
 categoryRouter.delete("/:id(\\d+)/", categoryController.delete);
 
+categoryRouter.get("/main", categoryController.getMainCats);
+
+categoryRouter.get("/parent/:id(\\d+)/", categoryController.getByParentId);
+
 export default categoryRouter;

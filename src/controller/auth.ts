@@ -26,13 +26,14 @@ class AuthController {
       return next(ApiError.unauthorized("Wrong password"));
     }
 
-    return res.status(200).json(
-      this.service.createToken({
+    return res.status(200).json({
+      user: userData,
+      token: this.service.createToken({
         user_id: userData.id,
         email: userData.email,
         admin: userData.admin,
-      })
-    );
+      }),
+    });
   };
 
   register = async (

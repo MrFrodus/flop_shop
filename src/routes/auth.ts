@@ -4,7 +4,7 @@ import { registrationValidation, logInValidation } from "../middleware/auth";
 
 const authRouter = express.Router();
 
-authRouter.post("/", logInValidation, authController.logIn);
+authRouter.post("/login", logInValidation, authController.logIn);
 
 authRouter.post("/reg", registrationValidation, authController.register);
 

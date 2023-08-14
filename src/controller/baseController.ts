@@ -26,7 +26,7 @@ export default class BaseController<T extends object> {
   };
 
   getAll = async (req: express.Request, res: express.Response) => {
-    const items: T[][] = await this.service.getAll();
+    const items: unknown[] = await this.service.getAll();
 
     return res.status(200).json(items);
   };

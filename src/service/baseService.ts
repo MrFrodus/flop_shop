@@ -20,7 +20,7 @@ export default class BaseService<T> {
     return item;
   };
 
-  getAll = async (): Promise<T[][]> => {
+  getAll = async (): Promise<unknown[]> => {
     return this.repository.getAll();
   };
 

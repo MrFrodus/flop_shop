@@ -26,7 +26,7 @@ export default class BaseRepository<T> {
       .where({ id });
   }
 
-  getAll(): Promise<T[][]> {
+  getAll(): Promise<unknown[]> {
     return db(this.table).select(...this.selectedColumns);
   }
 
