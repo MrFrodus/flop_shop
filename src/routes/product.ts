@@ -6,8 +6,6 @@ const productRouter = express.Router();
 
 productRouter.get("/:id(\\d+)/", productController.getById);
 
-productRouter.get("/join/:id(\\d+)/", productController.getByIdwithRelation);
-
 productRouter.get("/", productController.getAll);
 
 productRouter.post(
@@ -20,5 +18,12 @@ productRouter.post(
 productRouter.patch("/:id(\\d+)/", productController.update);
 
 productRouter.delete("/:id(\\d+)/", productController.delete);
+
+productRouter.get(
+  "/category/:category_slug",
+  productController.getByCategorySlug
+);
+
+productRouter.get("/search", productController.search);
 
 export default productRouter;

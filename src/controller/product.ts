@@ -7,20 +7,22 @@ import { IProduct } from "../models/product";
 class ProductController extends BaseController<IProduct> {
   protected service: ProductService;
 
-  getByIdwithRelation = async (
+  getByCategorySlug = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const product: IProduct | null = await this.service.getByIdwithRelation(
-      Number(req.params.id as string)
+    const catsProducts = await this.service.getByCategorySlug(
+      req.params.category_slug as string,
+      Number(req.query.page as string),
+      req.query.filter as string
     );
 
-    if (!product) {
-      return next(ApiError.notFound("Such product doesn't"));
+    if (!catsProducts) {
+      return next(ApiError.notFound("Category with such a slug doesn't exist"));
     }
 
-    return res.status(200).json(product);
+    return res.status(200).json(catsProducts);
   };
 
   add = async (req: express.Request, res: express.Response) => {
@@ -33,6 +35,24 @@ class ProductController extends BaseController<IProduct> {
     const newProductId: number[] = await this.service.add(product);
 
     return res.status(200).json(newProductId[0]);
+  };
+
+  search = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const searchResults = await this.service.searchByParams(
+      req.query.text as string,
+      Number(req.query.page as string),
+      req.query.filter as string
+    );
+
+    if (!searchResults) {
+      return next(ApiError.notFound("Page not found"));
+    }
+
+    return res.status(200).json(searchResults);
   };
 }
 

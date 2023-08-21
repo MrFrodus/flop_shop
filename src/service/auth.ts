@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import * as dotenv from "dotenv";
 import { IUser } from "../models/user";
@@ -27,6 +27,24 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     return hashedPassword;
+  };
+
+  getUserByToken = async (token: string) => {
+    const tokenDecoded = jwt.decode(token) as JwtPayload;
+
+    if (!tokenDecoded) {
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal
+      throw ApiError.unauthorized("Invalid token");
+    }
+
+    const user = await userService.getById(tokenDecoded.user_id);
+
+    if (!user) {
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal
+      throw ApiError.unauthorized("User trying to authorize doesn't exist");
+    }
+
+    return user;
   };
 
   register = async (user: IUser): Promise<number> => {

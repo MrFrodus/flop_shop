@@ -31,11 +31,12 @@ const addProductSchema = Joi.object()
     price: Joi.number().required(),
     discount: Joi.number().required(),
     quantity: Joi.number().required(),
-    shop: Joi.string().required(),
+    shop: Joi.number().required(),
     content: Joi.string(),
     starts_at: Joi.date(),
     ends_at: Joi.date(),
     image: Joi.string(),
+    category_id: Joi.number().required(),
   })
   .required()
   .min(1);
@@ -71,6 +72,7 @@ const updateProductSchema = Joi.object()
     content: Joi.string(),
     starts_at: Joi.date(),
     ends_at: Joi.date(),
+    category_id: Joi.number(),
   })
   .required()
   .min(1);

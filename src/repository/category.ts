@@ -15,6 +15,12 @@ export class CategoryRepository extends BaseRepository<ICategory> {
       .select(...this.selectedColumns)
       .where({ parent_id });
   }
+
+  getBySlug(slug: string): Promise<ICategory[]> {
+    return db(this.table)
+      .select(...this.selectedColumns)
+      .where({ slug });
+  }
 }
 
 export const categoryRepository = new CategoryRepository(

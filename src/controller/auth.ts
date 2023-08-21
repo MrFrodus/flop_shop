@@ -49,6 +49,22 @@ class AuthController {
       return next(error);
     }
   };
+
+  getUserByToken = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      console.log(req.body);
+
+      const updatedUserData = await this.service.getUserByToken(req.body.token);
+
+      return res.status(200).json(updatedUserData);
+    } catch (error) {
+      return next(error);
+    }
+  };
 }
 
 const authController = new AuthController(authService);

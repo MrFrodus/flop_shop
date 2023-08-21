@@ -16,30 +16,30 @@ export default class BaseRepository<T> {
     this.selectedColumns = selectedColumns;
   }
 
-  add(item: object): Promise<number[]> {
+  add = (item: object): Promise<number[]> => {
     return db(this.table).insert(item);
-  }
+  };
 
-  getById(id: number): Promise<T[]> {
+  getById = (id: number): Promise<T[]> => {
     return db(this.table)
       .select(...this.selectedColumns)
       .where({ id });
-  }
+  };
 
-  getAll(): Promise<unknown[]> {
+  getAll = (): Promise<unknown[]> => {
     return db(this.table).select(...this.selectedColumns);
-  }
+  };
 
-  update(id: number, changes: object): Promise<T[]> {
+  update = (id: number, changes: object): Promise<T[]> => {
     return db(this.table)
       .where({ id })
       .update(changes)
       .then(() => {
         return this.getById(id);
       });
-  }
+  };
 
-  delete(id: number): Promise<number> {
+  delete = (id: number): Promise<number> => {
     return db(this.table).where({ id }).del();
-  }
+  };
 }

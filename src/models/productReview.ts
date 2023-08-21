@@ -1,5 +1,5 @@
 export interface IProductReview {
-  id: number;
+  id?: number;
   parent_id?: number;
   product_id: number;
   title: string;

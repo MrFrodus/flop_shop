@@ -8,4 +8,6 @@ authRouter.post("/login", logInValidation, authController.logIn);
 
 authRouter.post("/reg", registrationValidation, authController.register);
 
+authRouter.post("/token", authController.getUserByToken);
+
 export default authRouter;

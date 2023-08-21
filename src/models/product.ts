@@ -1,7 +1,7 @@
 import { IUser } from "./user";
 
 export interface IProduct {
-  id: number;
+  id?: number;
   user_id: number;
   title: string;
   meta_title: string;
@@ -15,6 +15,8 @@ export interface IProduct {
   content: string;
   starts_at: Date;
   ends_at: Date;
-  user: IUser | null;
+  user?: IUser | null;
   image: string;
+  category_id: number;
+  rating_avg?: number;
 }

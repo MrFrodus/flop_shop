@@ -1,5 +1,5 @@
 export interface IShipping {
-  id: number;
+  id?: number;
   order_id?: number;
   user_id: number;
   region: string;
