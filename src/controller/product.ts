@@ -1,8 +1,51 @@
 import express from "express";
+import * as redis from "redis";
 import BaseController from "./baseController";
 import { ProductService, productService } from "../service/product";
 import ApiError from "../error/ApiError";
 import { IProduct } from "../models/product";
+
+const redisClient = redis.createClient();
+
+const connectRedis = async () => {
+  await redisClient.connect();
+  console.log("Redis connected");
+};
+
+connectRedis();
+
+const DEFAULT_EXPIRATION = 3600;
+
+const cacheData = async (key: string, value: any) => {
+  const data = await redisClient.get(key).catch((error) => {
+    return error;
+  });
+
+  if (data != null) {
+    console.log("Already cashed 🟢");
+
+    return JSON.parse(data);
+  }
+
+  console.log("Not cashed 🔴 ");
+
+  try {
+    const freshData = await value();
+
+    if (freshData) {
+      redisClient.setEx(key, DEFAULT_EXPIRATION, JSON.stringify(freshData));
+
+      return freshData;
+    }
+
+    console.log("Not valid value for cashing 🔴");
+
+    return freshData;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 class ProductController extends BaseController<IProduct> {
   protected service: ProductService;
@@ -12,10 +55,19 @@ class ProductController extends BaseController<IProduct> {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const catsProducts = await this.service.getByCategorySlug(
-      req.params.category_slug as string,
-      Number(req.query.page as string),
-      req.query.filter as string
+    const catsProducts = await cacheData(
+      `product/category/${req.params.category_slug}?page=${
+        req.query.page as string
+      }&filter=${req.query.filter as string}`,
+      async () => {
+        const products = await this.service.getByCategorySlug(
+          req.params.category_slug as string,
+          Number(req.query.page as string),
+          req.query.filter as string
+        );
+
+        return products;
+      }
     );
 
     if (!catsProducts) {
