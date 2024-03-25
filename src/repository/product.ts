@@ -4,12 +4,12 @@ import BaseRepository from "./baseRepository";
 import db from "../db/db";
 
 export class ProductRepository extends BaseRepository<IProduct> {
-  getByIdWIthRating = (id: number): Promise<IProduct[] | unknown> => {
+  getByIdWIthRating = (id: number): Promise<IProduct[]> => {
     return db(this.table)
       .select(...this.selectedColumns)
       .avg("product_review.rating as rating_average")
       .from("product")
-      .leftJoin(
+      .leftJoin<IProduct[]>(
         "product_review",
         "product_review.product_id",
         "=",
@@ -22,12 +22,12 @@ export class ProductRepository extends BaseRepository<IProduct> {
     category_id: number,
     page: number,
     filter: string
-  ): Promise<IProduct[] | string[]> => {
-    const products = db<IProduct>(this.table)
+  ): Promise<IProduct[]> => {
+    const products = db(this.table)
       .select(...this.selectedColumns)
       .avg("product_review.rating as rating_avg")
       .from("product")
-      .leftJoin(
+      .leftJoin<IProduct[]>(
         "product_review",
         "product_review.product_id",
         "=",
@@ -56,11 +56,13 @@ export class ProductRepository extends BaseRepository<IProduct> {
     return products;
   };
 
-  countByCategoryId = (category_id: number) => {
-    return db(this.table).count("* as count").where({ category_id });
+  countByCategoryId = (category_id: number): Promise<{ count: number }[]> => {
+    return db(this.table)
+      .count<[{ count: number }]>("* as count")
+      .where({ category_id });
   };
 
-  getAll = (): Promise<unknown[]> => {
+  getAll = (): Promise<IProduct[]> => {
     return db(this.table)
       .select(...this.selectedColumns)
       .avg("product_review.rating as rating_avg")
@@ -74,12 +76,16 @@ export class ProductRepository extends BaseRepository<IProduct> {
       .groupBy("product.id");
   };
 
-  search = (searchParams: string, page: number, filter: string) => {
+  search = (
+    searchParams: string,
+    page: number,
+    filter: string
+  ): Promise<IProduct[]> => {
     const products = db(this.table)
       .select(...this.selectedColumns)
       .avg("product_review.rating as rating_avg")
       .from("product")
-      .leftJoin(
+      .leftJoin<IProduct[]>(
         "product_review",
         "product_review.product_id",
         "=",
@@ -108,9 +114,9 @@ export class ProductRepository extends BaseRepository<IProduct> {
     return products;
   };
 
-  countBySearch = (searchParams: string) => {
+  countBySearch = (searchParams: string): Promise<{ count: number }[]> => {
     return db(this.table)
-      .count("* as count")
+      .count<[{ count: number }]>("* as count")
       .where("product.title", "like", `%${searchParams}%`);
   };
 }

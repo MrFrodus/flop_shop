@@ -1,20 +1,18 @@
 export default {
   development: {
-    client: "mysql",
+    client: "mysql2",
     connection: {
-      host: "localhost",
+      host: "db",
       port: 3306,
       user: "root",
       password: "password",
       database: "flop_shop",
     },
-    // useNullAsDefault: true,
-    pool: {
-      min: 2,
-      max: 10,
-    },
     migrations: {
       directory: "migrations",
+    },
+    seeds: {
+      directory: "seeds",
     },
   },
 };

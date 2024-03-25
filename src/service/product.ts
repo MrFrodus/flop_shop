@@ -15,28 +15,26 @@ export class ProductService extends BaseService<IProduct> {
 
     const { id: categoryId } = category;
 
-    const [totalProducts] = await this.repository.countByCategoryId(
-      categoryId!
-    );
+    const [totalProducts] = await this.repository.countByCategoryId(categoryId);
 
-    const totalPages = Math.ceil((totalProducts!.count! as number) / 6);
+    const totalPages = Math.ceil((totalProducts!.count as number) / 6);
 
     if (page > totalPages) {
-      return null;
+      return [];
     }
 
     const pagination = {
-      totalProducts: totalProducts!.count!,
+      totalProducts: totalProducts!.count,
       totalPages,
       perPage: 6,
       currentPage: page,
     };
 
-    const products = (await this.repository.getByCategoryId(
+    const products = await this.repository.getByCategoryId(
       categoryId!,
       page,
       filter
-    )) as IProduct[];
+    );
 
     const catsProducts = {
       category,
@@ -58,9 +56,9 @@ export class ProductService extends BaseService<IProduct> {
       filter
     )) as IProduct[];
 
-    const [totalProducts] = await this.repository.countBySearch(searchParams!);
+    const [totalProducts] = await this.repository.countBySearch(searchParams);
 
-    if (!totalProducts!.count) {
+    if (totalProducts!.count === 0) {
       return {
         pagination: {
           totalProducts: 0,
@@ -75,11 +73,11 @@ export class ProductService extends BaseService<IProduct> {
     const totalPages = Math.ceil((totalProducts!.count as number) / 6);
 
     if (page > totalPages) {
-      return null;
+      return [];
     }
 
     const pagination = {
-      totalProducts: totalProducts!.count!,
+      totalProducts: totalProducts!.count,
       totalPages,
       perPage: 6,
       currentPage: page,

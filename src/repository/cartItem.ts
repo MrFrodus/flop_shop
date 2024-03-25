@@ -36,10 +36,6 @@ export class CartItemRepository extends BaseRepository<ICartItem> {
     return db(this.table).where({ cart_id }).del();
   }
 
-  // getMany(ids: []): Promise<ICartItem[]> {
-  //   return db(this.table).whereIn("id", ids);
-  // }
-
   deleteMany(ids: number[]): Promise<number> {
     return db(this.table).whereIn("id", ids).del();
   }

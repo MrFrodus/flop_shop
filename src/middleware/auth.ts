@@ -14,7 +14,7 @@ const registrationSchema = Joi.object()
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
     email: Joi.string().email().required(),
-    mobile: Joi.string().required(),
+    mobile: Joi.number().required(),
     password: Joi.string().required(),
     admin: Joi.number().required(),
     vendor: Joi.number().required(),

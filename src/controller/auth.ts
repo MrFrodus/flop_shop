@@ -42,6 +42,7 @@ class AuthController {
     next: express.NextFunction
   ) => {
     try {
+      console.log(req.body)
       const newUserId: number = await this.service.register(req.body);
 
       return res.status(201).json(newUserId);

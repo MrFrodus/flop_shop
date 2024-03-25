@@ -3,10 +3,10 @@ import { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
   return knex.schema
     .alterTable("user", (table) => {
-      table.integer("mobile").notNullable().unique().alter();
+      table.bigInteger("mobile").notNullable().alter();
     })
     .alterTable("order", (table) => {
-      table.integer("mobile").notNullable().unique().alter();
+      table.bigInteger("mobile").notNullable().alter();
     });
 }
 

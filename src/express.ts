@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import apiErrorHandler from "./error/ApiErrorHandler";
-
 import userRouter from "./routes/user";
 import productRouter from "./routes/product";
 import productMetaRouter from "./routes/productMeta";
@@ -15,6 +14,7 @@ import orderItemRouter from "./routes/orderItem";
 import transactionRouter from "./routes/transaction";
 import authRouter from "./routes/auth";
 import shippingRouter from "./routes/shipping";
+import path from "path";
 
 const app = express();
 
@@ -38,5 +38,11 @@ app.use("/auth", authRouter);
 app.use("/shipping", shippingRouter);
 
 app.use(apiErrorHandler);
+
+app.use(express.static(path.join(__dirname, "..", "..", "flop_shop_front", "dist")));
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "..", "flop_shop_front", "dist", "index.html"));
+});
 
 app.listen(3001, () => console.log("server running on port 3001"));
